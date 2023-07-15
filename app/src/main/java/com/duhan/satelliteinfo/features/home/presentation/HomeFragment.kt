@@ -1,32 +1,33 @@
 package com.duhan.satelliteinfo.features.home.presentation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.duhan.satelliteinfo.R
+import com.duhan.satelliteinfo.databinding.FragmentHomeBinding
+import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState, HomeViewModel>() {
+    override val viewModel: HomeViewModel by viewModels()
+    override val layoutId: Int = R.layout.fragment_home
+    override val titleId: Int = R.string.home_fragment_title
+    override val fragmentTag: String = "HomeFragment"
 
-    companion object {
-        fun newInstance() = HomeFragment()
+
+    override fun setBindingViewModel() {
+
     }
 
-    private lateinit var viewModel: HomeViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun handleArgs(args: Bundle) {
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun handleUIState(it: HomeUIState) {
     }
+
+    override fun handleUIEvent(it: HomeUIEvent) {
+    }
+
+    override fun initView(binding: FragmentHomeBinding) {
+    }
+
 
 }

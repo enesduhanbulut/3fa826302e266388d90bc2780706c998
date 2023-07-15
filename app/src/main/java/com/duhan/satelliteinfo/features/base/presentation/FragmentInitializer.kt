@@ -2,7 +2,6 @@ package com.duhan.satelliteinfo.features.base.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
@@ -25,7 +24,6 @@ interface FragmentInitializer<DB : ViewDataBinding, UE : BaseUIEvent, US : BaseU
     val fragmentTag: String
 
     var mBinding: DB?
-    var binding: DB
     fun initView(binding: DB)
     fun setBindingViewModel()
     fun handleUIEvent(it: UE)
@@ -35,17 +33,17 @@ interface FragmentInitializer<DB : ViewDataBinding, UE : BaseUIEvent, US : BaseU
     fun onOnCreateViewTask(
         viewLifecycleOwner: LifecycleOwner, args: Bundle?,
         inflater: LayoutInflater, container: ViewGroup?
-    ): View {
+    ): DB {
         if (args != null) {
             handleArgs(args)
         }
         mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false) as DB
-        binding.lifecycleOwner = viewLifecycleOwner
+        mBinding!!.lifecycleOwner = viewLifecycleOwner
         setBindingViewModel()
         observeUIEvent(viewLifecycleOwner)
         observeUIState(viewLifecycleOwner)
-        initView(binding)
-        return binding.root
+        initView(mBinding!!)
+        return mBinding!!
     }
 
     fun observeUIEvent(lifecycleOwner: LifecycleOwner) {

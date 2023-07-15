@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Job
 
 abstract class BaseFragment<
         DB : ViewDataBinding,
@@ -13,12 +14,15 @@ abstract class BaseFragment<
         US : FragmentUIState,
         VM : FragmentViewModel<UE, US>,
         > : Fragment(), FragmentInitializer<DB, UE, US, VM> {
+    override var observeJobs: MutableList<Job> = mutableListOf()
+    override var mBinding: DB? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return onOnCreateViewTask(viewLifecycleOwner, savedInstanceState, inflater, container)
+        mBinding = onOnCreateViewTask(viewLifecycleOwner, savedInstanceState, inflater, container)
+        return mBinding!!.root
     }
 
     override fun onDestroyView() {

@@ -8,16 +8,19 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import com.duhan.satelliteinfo.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.Job
 
 abstract class BaseBottomSheet<BUE : BottomSheetEvent, BUS : BottomSheetState, VM : BottomSheetViewModel<BUE, BUS>, DB : ViewDataBinding> :
     BottomSheetDialogFragment(), FragmentInitializer<DB, BUE, BUS, VM> {
-
+    override var observeJobs: MutableList<Job> = mutableListOf()
+    override var mBinding: DB? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return onOnCreateViewTask(viewLifecycleOwner, requireArguments(), inflater, container)
+        mBinding = onOnCreateViewTask(viewLifecycleOwner, savedInstanceState, inflater, container)
+        return mBinding!!.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

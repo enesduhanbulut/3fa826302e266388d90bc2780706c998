@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SatelliteInfo</string>
+    <string name="home_fragment_title">Home Fragment</string>
 </resources>

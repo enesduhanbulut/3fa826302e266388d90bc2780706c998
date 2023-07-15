@@ -16,6 +16,7 @@ android {
         targetSdk = Configuration.targetSdk
         versionCode = Configuration.versionCode
         versionName = Configuration.versionName
+        testInstrumentationRunner =  "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -25,6 +26,12 @@ android {
 
     buildFeatures {
         dataBinding = true
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 
     hilt {
@@ -56,4 +63,13 @@ dependencies {
     // room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+
+    // ui test
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.fragment)
+
 }

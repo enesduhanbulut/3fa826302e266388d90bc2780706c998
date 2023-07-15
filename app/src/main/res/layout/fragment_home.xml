@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.duhan.satelliteinfo.features.home.presentation.HomeViewModel" />
+
+        <import type="com.duhan.satelliteinfo.features.home.presentation.HomeUIState.Success" />
+
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".features.home.presentation.HomeFragment">
+        android:layout_height="match_parent">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/satellites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello" />
-
-    </FrameLayout>
+            app:submitList="@{viewModel.uiState instanceof Success? ((Success)viewModel.uiState).satelliteList : null}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

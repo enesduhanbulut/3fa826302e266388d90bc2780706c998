@@ -67,6 +67,14 @@ dependencies {
     // json
     implementation(libs.moshi)
 
+    // unit test
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.turbine)
+    testImplementation(libs.coroutines.test)
+
     // ui test
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

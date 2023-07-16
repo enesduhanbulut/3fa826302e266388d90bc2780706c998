@@ -1,6 +1,6 @@
 package com.duhan.satelliteinfo.features.base.domain
 
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class RefreshControl(
@@ -8,6 +8,8 @@ class RefreshControl(
     private var lastUpdateDate: Date? = null
 ) : ITimeLimitedResource {
     companion object {
+        val ONE_TIME = 0L
+        val NO_EXPIRATION = -1L
         val DEFAULT_REFRESH_RATE_MS = TimeUnit.MINUTES.toMillis(5)
     }
 
@@ -17,6 +19,7 @@ class RefreshControl(
 
     private val listeners: MutableList<Listener> = mutableListOf()
     private val children: MutableList<RefreshControl> = mutableListOf()
+    private var isFetchedRemote = false
 
     // ITimeLimitedResource
     override var refreshRate: Long = rate
@@ -43,5 +46,12 @@ class RefreshControl(
         lastUpdateDate = Date()
     }
 
-    fun isExpired() = lastUpdateDate?.let { (Date().time - it.time) > refreshRate } ?: true
+    fun isExpired() = if (refreshRate != NO_EXPIRATION) {
+        lastUpdateDate?.let { (Date().time - it.time) > refreshRate } ?: true
+    } else if (refreshRate == ONE_TIME && !isFetchedRemote) {
+        isFetchedRemote = true
+        true
+    } else {
+        false
+    }
 }

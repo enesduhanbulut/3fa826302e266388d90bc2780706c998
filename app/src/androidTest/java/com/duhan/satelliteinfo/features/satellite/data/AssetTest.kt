@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.SatelliteDetailItem
-import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.SatelliteListItem
-import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.SatellitePositionsResponse
+import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model.SatelliteDetailItem
+import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model.SatelliteListItem
+import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model.SatellitePositionsResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

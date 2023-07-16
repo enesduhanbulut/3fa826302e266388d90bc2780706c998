@@ -1,6 +1,9 @@
 package com.duhan.satelliteinfo.features.satellite.data.asset_data_source
 
 import android.content.Context
+import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model.SatelliteDetailResponse
+import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model.SatelliteListResponse
+import com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model.SatellitePositionsResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import dagger.hilt.android.qualifiers.ApplicationContext

@@ -1,4 +1,4 @@
-package com.duhan.satelliteinfo.features.satellite.data.asset_data_source
+package com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model
 
 import com.squareup.moshi.Json
 

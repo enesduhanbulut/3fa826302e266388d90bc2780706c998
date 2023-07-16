@@ -5,11 +5,14 @@ import androidx.annotation.StringRes
 import com.duhan.satelliteinfo.features.base.presentation.FragmentUIEvent
 import com.duhan.satelliteinfo.features.base.presentation.FragmentUIState
 import com.duhan.satelliteinfo.features.base.presentation.FragmentViewModel
+import com.duhan.satelliteinfo.features.home.domain.GetSatellites
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : FragmentViewModel<HomeUIEvent, HomeUIState>() {
+class HomeViewModel @Inject constructor(
+    private val getSatellites: GetSatellites
+) : FragmentViewModel<HomeUIEvent, HomeUIState>() {
     fun onSatelliteItemClick(item: SatelliteItemModel) {
 
     }

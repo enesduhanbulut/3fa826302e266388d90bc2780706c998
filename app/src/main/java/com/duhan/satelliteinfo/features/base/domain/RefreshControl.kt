@@ -46,7 +46,7 @@ class RefreshControl(
         lastUpdateDate = Date()
     }
 
-    fun isExpired() = if (refreshRate != NO_EXPIRATION) {
+    fun isExpired() = if (refreshRate != NO_EXPIRATION && refreshRate != ONE_TIME) {
         lastUpdateDate?.let { (Date().time - it.time) > refreshRate } ?: true
     } else if (refreshRate == ONE_TIME && !isFetchedRemote) {
         isFetchedRemote = true

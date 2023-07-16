@@ -63,7 +63,7 @@ dependencies {
     // room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-
+    kapt(libs.androidx.room.compiler)
     // json
     implementation(libs.moshi)
 

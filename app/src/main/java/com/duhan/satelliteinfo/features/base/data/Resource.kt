@@ -17,8 +17,7 @@ class Resource<in Input, out Output>(
         refreshControl.addListener(this)
     }
 
-    // Public API
-    suspend fun query(args: Input, force: Boolean = false): Flow<Output?> = flow {
+    fun query(args: Input, force: Boolean = false): Flow<Output?> = flow {
         if (!force) {
             fetchFromLocal(args)?.run { emit(this) }
         }

@@ -1,5 +1,6 @@
 package com.duhan.satelliteinfo.features.satellite.data.asset_data_source.model
 
+import com.duhan.satelliteinfo.features.satellite.domain.model.SatelliteDetailDomainModel
 import com.squareup.moshi.Json
 
 class SatelliteDetailResponse : ArrayList<SatelliteDetailItem>()
@@ -16,3 +17,13 @@ data class SatelliteDetailItem(
     @Json(name = "mass")
     val mass: Int,
 )
+
+fun SatelliteDetailItem.toDomainModel(): SatelliteDetailDomainModel {
+    return SatelliteDetailDomainModel(
+        id = id,
+        costPerLaunch = costPerLaunch,
+        firstFlight = firstFlight,
+        height = height,
+        mass = mass,
+    )
+}

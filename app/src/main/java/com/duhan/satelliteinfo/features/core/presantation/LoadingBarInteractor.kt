@@ -31,11 +31,12 @@ class LoadingBarInteractorImpl<US> : LoadingBarInteractor<US> {
             if (loadingState == uiState) {
                 visibility = View.VISIBLE
                 if (parent != null) {
-                    fragmentManager.putFragment(
+                    fragmentManager.beginTransaction().add(
+                        loadingBarContainerId,
+                        LoadingFragment::class.java,
                         Bundle(),
                         "loadingBar",
-                        LoadingFragment()
-                    )
+                    ).commit()
                 }
             } else {
                 fragmentContainerView.visibility = View.GONE

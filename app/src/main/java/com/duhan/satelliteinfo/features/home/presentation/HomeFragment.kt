@@ -7,11 +7,14 @@ import com.duhan.satelliteinfo.databinding.FragmentHomeBinding
 import com.duhan.satelliteinfo.databinding.LayoutSatelliteItemBinding
 import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
 import com.duhan.satelliteinfo.features.base.presentation.BaseListAdapter
+import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractor
+import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractorImpl
 import com.duhan.satelliteinfo.features.core.presantation.setup
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState, HomeViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState, HomeViewModel>(),
+    LoadingBarInteractor<HomeUIState> by LoadingBarInteractorImpl() {
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.fragment_home
     override val titleId: Int = R.string.home_fragment_title
@@ -32,6 +35,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
         binding.satellites.setup(
             adapter = satelliteAdapter,
         )
+        registerLoadingBar(
+            supportFragmentManager = parentFragmentManager,
+            loadingState = HomeUIState.Loading,
+            viewDataBinding = binding,
+            loadingBarContainerId = R.id.loading_container
+        )
         viewModel.getSatellites()
     }
 
@@ -43,7 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     }
 
     override fun handleUIState(it: HomeUIState) {
-
+        onStateChange(it)
     }
 
     override fun handleUIEvent(it: HomeUIEvent) {

@@ -87,6 +87,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     }
 
     override fun handleArgs(args: Bundle) {
+        //no args
     }
 
     override fun handleUIState(it: HomeUIState) {
@@ -101,17 +102,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
                     it.item.toBundle(),
                     detailViewModel,
                     {
-                        handleBottomSheetEvent(it)
                     },
                     DetailUIEvent.Dismiss
                 )
             }
 
         }
-    }
-
-    private fun handleBottomSheetEvent(it: DetailUIEvent) {
-
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

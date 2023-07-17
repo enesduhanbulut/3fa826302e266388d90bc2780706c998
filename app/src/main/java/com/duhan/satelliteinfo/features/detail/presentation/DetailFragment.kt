@@ -32,8 +32,8 @@ class DetailFragment : BaseBottomSheet<FragmentDetailBinding,
         onStateChange(it)
         if (it is DetailUIState.Error) {
             Snackbar.make(
-                requireView(),
-                getString(it.messageId) + "/n" + getString(it.detailId),
+                requireActivity().findViewById(R.id.nav_host_fragment_container),
+                getString(it.messageId) + " Message:" + getString(it.detailId),
                 Snackbar.LENGTH_SHORT
             ).show()
             dismiss()

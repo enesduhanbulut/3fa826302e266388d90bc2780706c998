@@ -8,13 +8,81 @@
             name="viewModel"
             type="com.duhan.satelliteinfo.features.home.presentation.HomeViewModel" />
 
-        <import type="com.duhan.satelliteinfo.features.home.presentation.HomeUIState.Success" />
+        <import type="com.duhan.satelliteinfo.features.home.presentation.HomeUIState" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/satellites"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/margin_16dp"
+                app:submitList="@{viewModel.uiState instanceof HomeUIState.Success? ((HomeUIState.Success)viewModel.uiState).satelliteList : null}"
+                tools:itemCount="4"
+                tools:listitem="@layout/layout_satellite_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/error_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:setConstraintVisibility="@{viewModel.uiState instanceof HomeUIState.Error}">
+
+            <ImageView
+                android:id="@+id/errorIcon"
+                android:layout_width="256dp"
+                android:layout_height="256dp"
+                android:adjustViewBounds="true"
+                android:src="@{viewModel.uiState instanceof HomeUIState.Error ? context.getDrawable(((HomeUIState.Error)viewModel.uiState).iconId) : @drawable/not_found}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/not_found" />
+
+            <TextView
+                android:id="@+id/errorMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:gravity="center"
+                android:text="@{viewModel.uiState instanceof HomeUIState.Error ? context.getString(((HomeUIState.Error)viewModel.uiState).messageId) : @string/error}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/errorIcon"
+                tools:text="Error" />
+
+            <TextView
+                android:id="@+id/errorDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:text="@{viewModel.uiState instanceof HomeUIState.Error ? context.getString(((HomeUIState.Error)viewModel.uiState).detailId) : @string/error}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/errorMessage"
+                tools:text="Something happened" />
+
+            <Button
+                android:id="@+id/retryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:onClick="@{() -> viewModel.getSatellites()}"
+                android:text="@string/retry"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/loading_container"
@@ -23,36 +91,7 @@
             android:background="@color/transparent"
             android:visibility="gone" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/error_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
 
-            <ImageView
-                android:layout_width="256dp"
-                android:layout_height="256dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/not_found"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/satellites"
-                android:paddingHorizontal="@dimen/margin_16dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:submitList="@{viewModel.uiState instanceof Success? ((Success)viewModel.uiState).satelliteList : null}"
-                tools:itemCount="4"
-                tools:listitem="@layout/layout_satellite_item" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

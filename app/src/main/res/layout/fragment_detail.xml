@@ -110,6 +110,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/last_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.uiState instanceof DetailUIState.Success ? ((DetailUIState.Success)viewModel.uiState).getSatelliteDetailUIModel().position:@string/error}"

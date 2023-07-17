@@ -15,6 +15,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.duhan.satelliteinfo.MainActivity
 import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.atPosition
+import com.duhan.satelliteinfo.getText
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -82,6 +83,23 @@ class FragmentTest {
         Thread.sleep(delayMillis)
         onView(withId(R.id.detailContainer))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+
+    }
+
+    @Test
+    fun when_detail_screen_shown_positions_must_change() {
+        onView(withId(R.id.satellites))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<
+                        RecyclerView.ViewHolder>(0, click())
+            )
+        Thread.sleep(delayMillis)
+        val text = getText(onView(withId(R.id.last_position)))
+        Thread.sleep(delayMillis)
+        val text2 = getText(onView(withId(R.id.last_position)))
+
+
+        assert(text != text2)
 
     }
 }

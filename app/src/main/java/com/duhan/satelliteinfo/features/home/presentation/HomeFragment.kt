@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.databinding.FragmentHomeBinding
 import com.duhan.satelliteinfo.databinding.LayoutSatelliteItemBinding
@@ -18,6 +19,8 @@ import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractorIm
 import com.duhan.satelliteinfo.features.core.presantation.SpaceModel
 import com.duhan.satelliteinfo.features.core.presantation.setup
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState, HomeViewModel>(),
@@ -93,11 +96,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     }
 
     private fun performSearch(query: String?) {
-        TODO("Not yet implemented")
+        lifecycleScope.launch {
+            delay(200)
+            viewModel.searchSatellites(query)
+        }
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText.isNullOrEmpty()) {
+            viewModel.getSatellites()
+            return true
+        }
+        if (newText.length > 2) {
+            performSearch(newText)
+            return true
+        }
         return true
+
     }
 
 

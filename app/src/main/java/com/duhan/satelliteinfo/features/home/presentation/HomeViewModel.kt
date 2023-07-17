@@ -7,6 +7,7 @@ import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.features.base.presentation.FragmentUIEvent
 import com.duhan.satelliteinfo.features.base.presentation.FragmentUIState
 import com.duhan.satelliteinfo.features.base.presentation.FragmentViewModel
+import com.duhan.satelliteinfo.features.home.domain.GetFilteredSatellites
 import com.duhan.satelliteinfo.features.home.domain.GetSatellites
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getSatellites: GetSatellites
+    private val getSatellites: GetSatellites,
+    private val getFilteredSatellites: GetFilteredSatellites
 ) : FragmentViewModel<HomeUIEvent, HomeUIState>() {
 
     fun getSatellites() {
@@ -23,7 +25,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getSatellites.invoke()
                 .collectLatest {
-                    if (it.isSuccess) {
+                    if (it.isSuccess && it.getOrNull() != null && it.getOrNull()!!.isNotEmpty()) {
                         setState(
                             HomeUIState.Success(satelliteList = it.getOrNull() ?: emptyList())
                         )
@@ -42,6 +44,28 @@ class HomeViewModel @Inject constructor(
 
     fun onSatelliteItemClick(item: SatelliteItemModel) {
 
+    }
+
+    fun searchSatellites(query: String?) {
+        setState(HomeUIState.Loading)
+        viewModelScope.launch {
+            getFilteredSatellites.invoke(query)
+                .collectLatest {
+                    if (it.isNotEmpty()) {
+                        setState(
+                            HomeUIState.Success(satelliteList = it)
+                        )
+                    } else {
+                        setState(
+                            HomeUIState.Error(
+                                messageId = R.string.error,
+                                detailId = R.string.can_not_get_satellite_list,
+                                iconId = R.drawable.not_found
+                            )
+                        )
+                    }
+                }
+        }
     }
 }
 

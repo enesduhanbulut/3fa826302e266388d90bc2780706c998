@@ -11,4 +11,8 @@ import dagger.hilt.android.components.ViewModelComponent
 object HomeDomainModule {
     @Provides
     fun provideGetSatellites(repository: SatelliteRepository) = GetSatellites(repository)
+
+    @Provides
+    fun provideGetFilteredSatellites(repository: SatelliteRepository) =
+        GetFilteredSatellites(repository)
 }

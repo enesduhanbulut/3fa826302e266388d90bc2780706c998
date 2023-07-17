@@ -5,7 +5,9 @@ import androidx.fragment.app.viewModels
 import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.databinding.FragmentDetailBinding
 import com.duhan.satelliteinfo.features.base.presentation.BaseBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : BaseBottomSheet<FragmentDetailBinding,
         DetailUIEvent, DetailUIState, DetailViewModel>() {
     override val layoutId = R.layout.fragment_detail
@@ -23,15 +25,12 @@ class DetailFragment : BaseBottomSheet<FragmentDetailBinding,
     }
 
     override fun handleUIState(it: DetailUIState) {
-        TODO("Not yet implemented")
     }
 
     override fun handleUIEvent(it: DetailUIEvent) {
-        TODO("Not yet implemented")
     }
 
     override fun initView(binding: FragmentDetailBinding) {
-        TODO("Not yet implemented")
     }
 
 }

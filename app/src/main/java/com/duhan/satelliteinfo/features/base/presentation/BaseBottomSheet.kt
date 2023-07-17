@@ -19,7 +19,7 @@ abstract class BaseBottomSheet<DB : ViewDataBinding, BUE : BottomSheetEvent, BUS
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        mBinding = onOnCreateViewTask(viewLifecycleOwner, savedInstanceState, inflater, container)
+        mBinding = onOnCreateViewTask(viewLifecycleOwner, arguments, inflater, container)
         return mBinding!!.root
     }
 

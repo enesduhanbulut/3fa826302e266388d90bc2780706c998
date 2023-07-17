@@ -45,7 +45,11 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onSatelliteItemClick(item: SatelliteItemModel) {
-        setEvent(HomeUIEvent.NavigateToDetail(DetailFragmentArgs(item.id, item.name)))
+        setEvent(
+            HomeUIEvent.NavigateToDetail(
+                DetailFragmentArgs.Builder(item.id, item.name).build()
+            )
+        )
     }
 
     fun searchSatellites(query: String?) {

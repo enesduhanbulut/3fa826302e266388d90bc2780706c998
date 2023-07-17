@@ -21,7 +21,7 @@ abstract class BaseFragment<
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        mBinding = onOnCreateViewTask(viewLifecycleOwner, savedInstanceState, inflater, container)
+        mBinding = onOnCreateViewTask(viewLifecycleOwner, arguments, inflater, container)
         return mBinding!!.root
     }
 

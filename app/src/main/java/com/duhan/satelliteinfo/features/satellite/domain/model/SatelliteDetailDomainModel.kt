@@ -25,11 +25,10 @@ fun SatelliteDetailDomainModel.toUIModel(): SatelliteDetailUIModel {
     return SatelliteDetailUIModel(
         id = this.id,
         name = "",
-        costPerLaunch = this.costPerLaunch,
+        costPerLaunch = this.costPerLaunch.toString(),
         firstFlight = this.firstFlight,
-        height = this.height,
-        mass = this.mass,
-        Pair(0.0, 0.0)
+        heightMass = this.height.toString() + "/" + this.mass.toString(),
+        position = "0, 0",
     )
 
 }

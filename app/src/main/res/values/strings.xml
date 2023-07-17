@@ -8,7 +8,9 @@
     <string name="retry">Retry</string>
     <string name="search">Search</string>
     <string name="detail_fragment_title">Detail Fragment</string>
-    <string name="height_mass">Height/Mass</string>
-    <string name="costs">Costs</string>
-    <string name="last_position">Last Position</string>
+    <string name="height_mass">Height/Mass: </string>
+    <string name="costs">Costs: </string>
+    <string name="last_position">Last Position: </string>
+    <string name="empty"></string>
+    <string name="can_not_get_satellite_detail">Satellite details can not received</string>
 </resources>

@@ -103,7 +103,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
                     {
                         handleBottomSheetEvent(it)
                     },
-                    DetailUIEvent.Dismiss as DetailUIEvent
+                    DetailUIEvent.Dismiss
                 )
             }
 

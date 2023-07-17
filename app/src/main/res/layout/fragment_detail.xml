@@ -30,7 +30,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.uiState instanceof DetailUIState.Success ? ((DetailUIState.Success)viewModel.uiState).detailUIModel.name : ``}"
+                android:text="@{viewModel.uiState instanceof DetailUIState.Success ? ((DetailUIState.Success)viewModel.uiState).getSatelliteDetailUIModel().name : @string/error}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textStyle="bold"
                 tools:text="Starlink-15 (v1.0)" />
@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16dp"
+                android:text="@{viewModel.uiState instanceof DetailUIState.Success ?((DetailUIState.Success)viewModel.uiState).getSatelliteDetailUIModel().firstFlight : @string/error}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 tools:text="11.11.2020" />
 
@@ -59,6 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.uiState instanceof DetailUIState.Success ?((DetailUIState.Success)viewModel.uiState).getSatelliteDetailUIModel().heightMass : @string/error}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:text="110/11000" />
 
@@ -81,6 +83,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.uiState instanceof DetailUIState.Success ?((DetailUIState.Success)viewModel.uiState).getSatelliteDetailUIModel().costPerLaunch:@string/error}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:text="110/11000" />
 
@@ -103,6 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.uiState instanceof DetailUIState.Success ? ((DetailUIState.Success)viewModel.uiState).getSatelliteDetailUIModel().position:@string/error}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:text="110/11000" />
 

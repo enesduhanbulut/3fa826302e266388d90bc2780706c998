@@ -22,7 +22,7 @@ abstract class BaseViewModel<UE : BaseUIEvent, US : BaseUIState> : ViewModel() {
         mutableUIEvent.emit(event)
     }
 
-    fun setSuccessState(state: US) {
+    fun setState(state: US) {
         if (mutableUIState.value == state) {
             mutableUIState.value = null
         }

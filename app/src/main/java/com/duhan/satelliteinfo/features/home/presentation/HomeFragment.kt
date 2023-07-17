@@ -8,7 +8,9 @@ import com.duhan.satelliteinfo.databinding.LayoutSatelliteItemBinding
 import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
 import com.duhan.satelliteinfo.features.base.presentation.BaseListAdapter
 import com.duhan.satelliteinfo.features.core.presantation.setup
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState, HomeViewModel>() {
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.fragment_home
@@ -30,6 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
         binding.satellites.setup(
             adapter = satelliteAdapter,
         )
+        viewModel.getSatellites()
     }
 
     override fun setBindingViewModel() {
@@ -40,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     }
 
     override fun handleUIState(it: HomeUIState) {
+
     }
 
     override fun handleUIEvent(it: HomeUIEvent) {

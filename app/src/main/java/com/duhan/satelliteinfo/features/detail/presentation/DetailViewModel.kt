@@ -18,20 +18,20 @@ class DetailViewModel @Inject constructor(
     private val getDetails: GetDetail,
     private val getPositions: GetPositions
 ) : BottomSheetViewModel<DetailUIEvent, DetailUIState>() {
-    fun init(detailFragmentArgs: DetailFragmentArgs) {
+    fun init(id: Int, name: String) {
         setState(DetailUIState.Loading)
-        startGetDetails(detailFragmentArgs)
-        startGetPositions(detailFragmentArgs)
+        startGetDetails(id, name)
+        startGetPositions(id)
     }
 
-    private fun startGetDetails(detailFragmentArgs: DetailFragmentArgs) {
+    private fun startGetDetails(id: Int, bundleName: String) {
         viewModelScope.launch {
-            getDetails.invoke(detailFragmentArgs.id)
+            getDetails.invoke(id)
                 .collectLatest {
                     if (it.isSuccess && it.getOrNull() != null) {
                         val satelliteDetailUIModel = it.getOrNull()!!
                         setState(DetailUIState.Success(satelliteDetailUIModel.apply {
-                            name = detailFragmentArgs.name
+                            name = bundleName
                         }))
                     } else {
                         setState(
@@ -48,9 +48,9 @@ class DetailViewModel @Inject constructor(
     }
 
     @OptIn(FlowPreview::class)
-    private fun startGetPositions(args: DetailFragmentArgs) {
+    private fun startGetPositions(id: Int) {
         viewModelScope.launch {
-            getPositions.invoke(args.id)
+            getPositions.invoke(id)
                 .collect {
                     updatePosition(it)
                 }

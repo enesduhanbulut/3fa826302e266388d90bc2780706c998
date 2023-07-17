@@ -21,7 +21,7 @@ class DetailFragment : BaseBottomSheet<FragmentDetailBinding,
 
     override fun handleArgs(args: Bundle) {
         val detailFragmentArgs = DetailFragmentArgs.fromBundle(args)
-        viewModel.init(detailFragmentArgs)
+        viewModel.init(detailFragmentArgs.id, detailFragmentArgs.name)
     }
 
     override fun handleUIState(it: DetailUIState) {

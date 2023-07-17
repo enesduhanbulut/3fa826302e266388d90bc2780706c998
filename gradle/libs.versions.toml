@@ -5,6 +5,7 @@ ksp = "1.8.10-1.0.9"
 javaRelease = "8"
 jvmTarget = "1.8"
 material = "1.8.0"
+safeArgs = "2.6.0"
 androidxActivity = "1.4.0"
 androidxFragment = "1.5.1"
 androidxLifecycle = "2.5.1"
@@ -12,7 +13,7 @@ androidxRoom = "2.5.0"
 androidxArchCore = "2.1.0"
 androidXStartup = "1.1.1"
 ktxCore = "1.8.0"
-nav_version = "2.3.5"
+nav_version = "2.6.0"
 hilt = "2.44"
 retrofit = "2.9.0"
 okHttp = "4.10.0"
@@ -48,6 +49,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version = "6.7.2" }
 hilt-plugin = { id = "dagger.hilt.android.plugin", version = "hilt" }
+safeArgs = { id = "androidx.navigation.safeargs", version.ref = "safeArgs" }
 
 [libraries]
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -55,6 +57,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp = { module = "com.google.devtools.ksp:symbol-processing", version.ref = "ksp" }
 
 material = { module = "com.google.android.material:material", version.ref = "material" }
+safe-args = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "nav_version" }
 androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "ktxCore" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
@@ -63,8 +66,8 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoom" }
 androidx-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCore" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidXStartup" }
-androidx-navigation-fragment = { module =  "androidx.navigation:navigation-fragment-ktx", version.ref = "nav_version" }
-androidx-navigation-ui = { module =  "androidx.navigation:navigation-ui-ktx", version.ref = "nav_version" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav_version" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav_version" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidTestRunner" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidTestRunner" }

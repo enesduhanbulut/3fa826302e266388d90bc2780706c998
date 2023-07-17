@@ -13,5 +13,6 @@ buildscript {
         classpath(libs.agp)
         classpath(libs.kotlin.gradlePlugin)
         classpath(libs.hilt.plugin)
+        classpath(libs.safe.args)
     }
 }

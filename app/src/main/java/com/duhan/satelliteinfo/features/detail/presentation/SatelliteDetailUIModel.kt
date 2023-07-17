@@ -1,6 +1,6 @@
 package com.duhan.satelliteinfo.features.detail.presentation
 
-data class DetailUIModel(
+data class SatelliteDetailUIModel(
     val id: Int,
     val name: String,
     val costPerLaunch: Int,

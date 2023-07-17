@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,10 +15,14 @@ import com.duhan.satelliteinfo.databinding.FragmentHomeBinding
 import com.duhan.satelliteinfo.databinding.LayoutSatelliteItemBinding
 import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
 import com.duhan.satelliteinfo.features.base.presentation.BaseListAdapter
+import com.duhan.satelliteinfo.features.base.presentation.showBottomSheet
 import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractor
 import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractorImpl
 import com.duhan.satelliteinfo.features.core.presantation.SpaceModel
 import com.duhan.satelliteinfo.features.core.presantation.setup
+import com.duhan.satelliteinfo.features.detail.presentation.DetailFragment
+import com.duhan.satelliteinfo.features.detail.presentation.DetailUIEvent
+import com.duhan.satelliteinfo.features.detail.presentation.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,6 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     LoadingBarInteractor<HomeUIState> by LoadingBarInteractorImpl(),
     SearchView.OnQueryTextListener {
     override val viewModel: HomeViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by activityViewModels()
     override val layoutId: Int = R.layout.fragment_home
     override val titleId: Int = R.string.home_fragment_title
     override val fragmentTag: String = "HomeFragment"
@@ -89,9 +95,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
 
     override fun handleUIEvent(it: HomeUIEvent) {
         when (it) {
+            is HomeUIEvent.NavigateToDetail -> {
+                showBottomSheet(
+                    DetailFragment(),
+                    it.item.toBundle(),
+                    detailViewModel,
+                    {
+                        handleBottomSheetEvent(it)
+                    },
+                    DetailUIEvent.Dismiss as DetailUIEvent
+                )
+            }
 
-            else -> {}
         }
+    }
+
+    private fun handleBottomSheetEvent(it: DetailUIEvent) {
+
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

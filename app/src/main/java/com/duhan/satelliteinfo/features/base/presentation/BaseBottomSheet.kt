@@ -10,7 +10,7 @@ import com.duhan.satelliteinfo.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Job
 
-abstract class BaseBottomSheet<BUE : BottomSheetEvent, BUS : BottomSheetState, VM : BottomSheetViewModel<BUE, BUS>, DB : ViewDataBinding> :
+abstract class BaseBottomSheet<DB : ViewDataBinding, BUE : BottomSheetEvent, BUS : BottomSheetState, VM : BottomSheetViewModel<BUE, BUS>> :
     BottomSheetDialogFragment(), FragmentInitializer<DB, BUE, BUS, VM> {
     override var observeJobs: MutableList<Job> = mutableListOf()
     override var mBinding: DB? = null

@@ -7,6 +7,7 @@ import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.features.base.presentation.FragmentUIEvent
 import com.duhan.satelliteinfo.features.base.presentation.FragmentUIState
 import com.duhan.satelliteinfo.features.base.presentation.FragmentViewModel
+import com.duhan.satelliteinfo.features.detail.presentation.DetailFragmentArgs
 import com.duhan.satelliteinfo.features.home.domain.GetFilteredSatellites
 import com.duhan.satelliteinfo.features.home.domain.GetSatellites
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +45,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onSatelliteItemClick(item: SatelliteItemModel) {
-        setEvent(HomeUIEvent.SatelliteItemClick(item))
+        setEvent(HomeUIEvent.NavigateToDetail(DetailFragmentArgs(item.id, item.name)))
     }
 
     fun searchSatellites(query: String?) {
@@ -88,5 +89,5 @@ sealed interface HomeUIState : FragmentUIState {
 }
 
 sealed interface HomeUIEvent : FragmentUIEvent {
-    data class SatelliteItemClick(val item: SatelliteItemModel) : HomeUIEvent
+    data class NavigateToDetail(val item: DetailFragmentArgs) : HomeUIEvent
 }

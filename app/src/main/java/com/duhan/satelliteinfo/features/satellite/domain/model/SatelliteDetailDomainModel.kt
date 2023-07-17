@@ -1,5 +1,6 @@
 package com.duhan.satelliteinfo.features.satellite.domain.model
 
+import com.duhan.satelliteinfo.features.detail.presentation.SatelliteDetailUIModel
 import com.duhan.satelliteinfo.features.satellite.data.db_data_source.model.SatelliteDetailEntity
 
 data class SatelliteDetailDomainModel(
@@ -18,4 +19,17 @@ fun SatelliteDetailDomainModel.toEntity(): SatelliteDetailEntity {
         height = this.height,
         mass = this.mass,
     )
+}
+
+fun SatelliteDetailDomainModel.toUIModel(): SatelliteDetailUIModel {
+    return SatelliteDetailUIModel(
+        id = this.id,
+        name = "",
+        costPerLaunch = this.costPerLaunch,
+        firstFlight = this.firstFlight,
+        height = this.height,
+        mass = this.mass,
+        Pair(0.0, 0.0)
+    )
+
 }

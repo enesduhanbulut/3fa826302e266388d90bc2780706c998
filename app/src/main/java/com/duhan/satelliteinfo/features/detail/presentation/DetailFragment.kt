@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.databinding.FragmentDetailBinding
-import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
+import com.duhan.satelliteinfo.features.base.presentation.BaseBottomSheet
 
-class DetailFragment : BaseFragment<FragmentDetailBinding,
+class DetailFragment : BaseBottomSheet<FragmentDetailBinding,
         DetailUIEvent, DetailUIState, DetailViewModel>() {
     override val layoutId = R.layout.fragment_detail
     override val titleId = R.string.detail_fragment_title
@@ -18,7 +18,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding,
     }
 
     override fun handleArgs(args: Bundle) {
-        TODO("Not yet implemented")
+        val detailFragmentArgs = DetailFragmentArgs.fromBundle(args)
+        viewModel.init(detailFragmentArgs)
     }
 
     override fun handleUIState(it: DetailUIState) {

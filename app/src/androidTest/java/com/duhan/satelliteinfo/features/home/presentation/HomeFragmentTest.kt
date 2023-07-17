@@ -9,6 +9,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @RunWith(AndroidJUnit4::class)
 class FragmentTest {
     @JvmField
@@ -20,5 +21,17 @@ class FragmentTest {
     fun showHomeFragmentWhenAppStated() {
         Espresso.onView(ViewMatchers.withId(R.id.satellites))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun verifyErrorMessageHidden() {
+        Espresso.onView(ViewMatchers.withId(R.id.error_container))
+            .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+    }
+
+    @Test
+    fun verifyLoadingContainerHidden() {
+        Espresso.onView(ViewMatchers.withId(R.id.loading_container))
+            .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
     }
 }

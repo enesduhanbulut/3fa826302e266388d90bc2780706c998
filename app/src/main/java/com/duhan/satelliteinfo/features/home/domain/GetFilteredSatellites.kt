@@ -13,6 +13,7 @@ class GetFilteredSatellites(
     private val repository: SatelliteRepository
 ) {
     operator fun invoke(query: String?): Flow<List<SatelliteItemModel>> {
+        var searchQuery = query ?: ""
         val response = repository.getSatelliteList()
             .map { domainModels -> domainModels?.map { it.toUIModel() } }
             .map { Result.success(it) }
@@ -23,14 +24,14 @@ class GetFilteredSatellites(
         return response.map { satelliteItemModels ->
             satelliteItemModels.filter {
                 (if (it.active) "Active" else "Passive").lowercase()
-                    .contains(query!!.lowercase(), false)
+                    .contains(searchQuery.lowercase(), false)
             }
         }.zip(response.map { satelliteItemModels ->
             satelliteItemModels.filter {
-                it.name.lowercase().contains(query!!.lowercase(), false)
+                it.name.lowercase().contains(searchQuery.lowercase(), false)
             }
         }) { satelliteItemModels, satelliteItemModels2 ->
             satelliteItemModels + satelliteItemModels2
-        }
+        }.map { it.distinct() }
     }
 }

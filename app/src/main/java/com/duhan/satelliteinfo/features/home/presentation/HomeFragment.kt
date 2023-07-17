@@ -9,6 +9,7 @@ import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
 import com.duhan.satelliteinfo.features.base.presentation.BaseListAdapter
 import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractor
 import com.duhan.satelliteinfo.features.core.presantation.LoadingBarInteractorImpl
+import com.duhan.satelliteinfo.features.core.presantation.SpaceModel
 import com.duhan.satelliteinfo.features.core.presantation.setup
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +35,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
         }
         binding.satellites.setup(
             adapter = satelliteAdapter,
+            spaceModel = SpaceModel(
+                resources.getDimensionPixelSize(R.dimen.margin_8dp),
+                resources.getDimensionPixelSize(R.dimen.margin_8dp),
+
+                ),
         )
         registerLoadingBar(
             supportFragmentManager = parentFragmentManager,

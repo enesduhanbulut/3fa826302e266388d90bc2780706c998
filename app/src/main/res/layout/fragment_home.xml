@@ -46,6 +46,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/satellites"
+                android:paddingHorizontal="@dimen/margin_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:submitList="@{viewModel.uiState instanceof Success? ((Success)viewModel.uiState).satelliteList : null}"

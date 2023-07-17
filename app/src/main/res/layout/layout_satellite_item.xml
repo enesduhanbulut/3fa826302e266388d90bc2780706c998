@@ -1,20 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.duhan.satelliteinfo.R" />
+
         <variable
             name="uiModel"
             type="com.duhan.satelliteinfo.features.home.presentation.SatelliteItemModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/app_name" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="128dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@{uiModel.active ? @drawable/baseline_circle_green : @drawable/baseline_circle_red}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/baseline_circle_green" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{uiModel.name}"
+                android:textColor="@{uiModel.active ? @color/black : @color/gray}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Starlink-1" />
+
+            <TextView
+                android:id="@+id/active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{uiModel.active ? @string/active : @string/passive}"
+                android:textColor="@{uiModel.active ? @color/black : @color/gray}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
+                tools:text="Active" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 </layout>

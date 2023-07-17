@@ -1,32 +1,36 @@
 package com.duhan.satelliteinfo.features.detail.presentation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.duhan.satelliteinfo.R
+import com.duhan.satelliteinfo.databinding.FragmentDetailBinding
+import com.duhan.satelliteinfo.features.base.presentation.BaseFragment
 
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment<FragmentDetailBinding,
+        DetailUIEvent, DetailUIState, DetailViewModel>() {
+    override val layoutId = R.layout.fragment_detail
+    override val titleId = R.string.detail_fragment_title
+    override val viewModel: DetailViewModel by viewModels()
+    override val fragmentTag = "DetailFragment"
 
-    companion object {
-        fun newInstance() = DetailFragment()
+    override fun setBindingViewModel() {
+        mBinding?.viewModel = viewModel
     }
 
-    private lateinit var viewModel: DetailViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    override fun handleArgs(args: Bundle) {
+        TODO("Not yet implemented")
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun handleUIState(it: DetailUIState) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handleUIEvent(it: DetailUIEvent) {
+        TODO("Not yet implemented")
+    }
+
+    override fun initView(binding: FragmentDetailBinding) {
+        TODO("Not yet implemented")
     }
 
 }

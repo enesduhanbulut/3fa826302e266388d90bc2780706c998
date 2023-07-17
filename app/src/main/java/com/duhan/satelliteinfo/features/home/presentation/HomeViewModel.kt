@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onSatelliteItemClick(item: SatelliteItemModel) {
-
+        setEvent(HomeUIEvent.SatelliteItemClick(item))
     }
 
     fun searchSatellites(query: String?) {
@@ -87,4 +87,6 @@ sealed interface HomeUIState : FragmentUIState {
     ) : HomeUIState
 }
 
-sealed interface HomeUIEvent : FragmentUIEvent
+sealed interface HomeUIEvent : FragmentUIEvent {
+    data class SatelliteItemClick(val item: SatelliteItemModel) : HomeUIEvent
+}

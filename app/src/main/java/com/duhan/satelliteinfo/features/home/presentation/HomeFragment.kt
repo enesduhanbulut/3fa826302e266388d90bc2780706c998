@@ -88,6 +88,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     }
 
     override fun handleUIEvent(it: HomeUIEvent) {
+        when (it) {
+
+            else -> {}
+        }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

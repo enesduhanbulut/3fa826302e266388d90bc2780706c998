@@ -7,4 +7,8 @@
     <string name="passive">Passive</string>
     <string name="retry">Retry</string>
     <string name="search">Search</string>
+    <string name="detail_fragment_title">Detail Fragment</string>
+    <string name="height_mass">Height/Mass</string>
+    <string name="costs">Costs</string>
+    <string name="last_position">Last Position</string>
 </resources>

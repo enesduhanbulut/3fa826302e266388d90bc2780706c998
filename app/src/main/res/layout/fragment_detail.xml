@@ -1,20 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.duhan.satelliteinfo.features.detail.presentation.DetailViewModel" />
+
+        <import type="com.duhan.satelliteinfo.features.detail.presentation.DetailUIState" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".features.detail.presentation.DetailFragment">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.uiState instanceof DetailUIState.Success ? ((DetailUIState.Success)viewModel.uiState).detailUIModel.name : ``}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textStyle="bold"
+                tools:text="Starlink-15 (v1.0)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="11.11.2020" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_48dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/height_mass"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:text="110/11000" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/costs"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:text="110/11000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_position"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:text="110/11000" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/loading_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello" />
-
-    </FrameLayout>
+            android:background="@color/transparent"
+            android:visibility="gone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

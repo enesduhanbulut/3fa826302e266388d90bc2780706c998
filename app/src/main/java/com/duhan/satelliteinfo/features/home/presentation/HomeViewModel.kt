@@ -20,6 +20,7 @@ class HomeViewModel @Inject constructor(
     private val getFilteredSatellites: GetFilteredSatellites
 ) : FragmentViewModel<HomeUIEvent, HomeUIState>() {
 
+    private var isSearching = false
     fun getSatellites() {
         setState(HomeUIState.Loading)
         viewModelScope.launch {
@@ -47,10 +48,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchSatellites(query: String?) {
+        if (isSearching) return
         setState(HomeUIState.Loading)
         viewModelScope.launch {
+            isSearching = true
             getFilteredSatellites.invoke(query)
                 .collectLatest {
+                    isSearching = false
                     if (it.isNotEmpty()) {
                         setState(
                             HomeUIState.Success(satelliteList = it)

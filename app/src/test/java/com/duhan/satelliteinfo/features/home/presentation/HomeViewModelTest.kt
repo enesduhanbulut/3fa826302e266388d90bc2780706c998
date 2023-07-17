@@ -32,7 +32,7 @@ class HomeViewModelTest {
         viewModel = HomeViewModel(getSatellites, getFilteredSatellites)
     }
 
-    @OptIn(ExperimentalTime::class)
+    @OptIn(ExperimentalTime::class, ExperimentalCoroutinesApi::class)
     @Test
     fun `getSatellites() called, state must loading`() = runTest {
         Mockito.`when`(getSatellites.invoke()).thenReturn(flowOf(Result.success(emptyList())))
@@ -44,7 +44,7 @@ class HomeViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalTime::class)
+    @OptIn(ExperimentalTime::class, ExperimentalCoroutinesApi::class)
     @Test
     fun `getFilteredSatellites() called with query, state must be filtered list`() = runTest {
         // Mock the filtered satellites response

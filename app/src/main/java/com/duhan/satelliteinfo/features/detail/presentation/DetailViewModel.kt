@@ -5,16 +5,11 @@ import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.features.base.presentation.BottomSheetEvent
 import com.duhan.satelliteinfo.features.base.presentation.BottomSheetState
 import com.duhan.satelliteinfo.features.base.presentation.BottomSheetViewModel
-import com.duhan.satelliteinfo.features.core.domain.repeatWithDelay
 import com.duhan.satelliteinfo.features.detail.domain.GetDetail
 import com.duhan.satelliteinfo.features.detail.domain.GetPositions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,12 +51,6 @@ class DetailViewModel @Inject constructor(
     private fun startGetPositions(args: DetailFragmentArgs) {
         viewModelScope.launch {
             getPositions.invoke(args.id)
-                .filter { it.isSuccess && it.getOrNull() != null }
-                .map { it.getOrNull()!! }
-                .flatMapConcat {
-                    it.asFlow()
-                }
-                .repeatWithDelay(3000)
                 .collect {
                     updatePosition(it)
                 }

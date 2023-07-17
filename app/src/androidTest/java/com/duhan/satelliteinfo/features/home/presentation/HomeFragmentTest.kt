@@ -1,8 +1,10 @@
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
@@ -46,7 +48,7 @@ class FragmentTest {
 
     @Test
     fun searchSatellites_withValidQuery_shouldDisplayFilteredItems() {
-        onView(isAssignableFrom(SearchView::class.java)).perform(ViewActions.click())
+        onView(isAssignableFrom(SearchView::class.java)).perform(click())
         onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText("Starship-1"))
         Thread.sleep(delayMillis)
         onView(withId(R.id.satellites))
@@ -56,8 +58,8 @@ class FragmentTest {
 
     @Test
     fun searchSatellites_withEmptyQuery_shouldDisplayAllItems() {
-        onView(isAssignableFrom(SearchView::class.java)).perform(ViewActions.click())
-        onView(withId(R.id.search)).perform(ViewActions.click())
+        onView(isAssignableFrom(SearchView::class.java)).perform(click())
+        onView(withId(R.id.search)).perform(click())
         onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText(""))
 
         Thread.sleep(delayMillis)
@@ -67,6 +69,19 @@ class FragmentTest {
             .check(ViewAssertions.matches(atPosition(1, hasDescendant(withText("Dragon-1")))))
         onView(withId(R.id.satellites))
             .check(ViewAssertions.matches(atPosition(2, hasDescendant(withText("Starship-3")))))
+
+    }
+
+    @Test
+    fun show_satellite_detail_when_click_item() {
+        onView(withId(R.id.satellites))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<
+                        RecyclerView.ViewHolder>(0, click())
+            )
+        Thread.sleep(delayMillis)
+        onView(withId(R.id.detailContainer))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
     }
 }

@@ -11,13 +11,15 @@ interface LoadingBarInteractor<US> {
         supportFragmentManager: FragmentManager,
         loadingState: US,
         viewDataBinding: ViewDataBinding,
-        loadingBarContainerId: Int
+        loadingBarContainerId: Int,
+        invisibleContainerId: Int = 0
     )
 
     fun onStateChange(uiState: US)
 }
 
 class LoadingBarInteractorImpl<US> : LoadingBarInteractor<US> {
+    private var invisibleContainerId = 0
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ViewDataBinding
     private var loadingBarContainerId: Int = 0
@@ -26,10 +28,13 @@ class LoadingBarInteractorImpl<US> : LoadingBarInteractor<US> {
         if (loadingState == null) return
         if (loadingBarContainerId == 0) return
         val fragmentContainerView = binding.root.findViewById<View>(loadingBarContainerId)
+        val invisibleContainerView =
+            if (invisibleContainerId != 0) binding.root.findViewById<View>(invisibleContainerId) else null
         if (fragmentContainerView !is FragmentContainerView) return
         with(fragmentContainerView) {
             if (loadingState == uiState) {
                 visibility = View.VISIBLE
+                invisibleContainerView.let { visibility = View.GONE }
                 if (parent != null) {
                     fragmentManager.beginTransaction().add(
                         loadingBarContainerId,
@@ -39,6 +44,7 @@ class LoadingBarInteractorImpl<US> : LoadingBarInteractor<US> {
                     ).commit()
                 }
             } else {
+                invisibleContainerView.let { visibility = View.VISIBLE }
                 fragmentContainerView.visibility = View.GONE
                 fragmentManager.popBackStack()
             }
@@ -49,12 +55,14 @@ class LoadingBarInteractorImpl<US> : LoadingBarInteractor<US> {
         supportFragmentManager: FragmentManager,
         loadingState: US,
         viewDataBinding: ViewDataBinding,
-        loadingBarContainerId: Int
+        loadingBarContainerId: Int,
+        invisibleContainerId: Int
     ) {
         this.fragmentManager = supportFragmentManager
         this.loadingState = loadingState
         this.binding = viewDataBinding
         this.loadingBarContainerId = loadingBarContainerId
+        this.invisibleContainerId = invisibleContainerId
     }
 
 }

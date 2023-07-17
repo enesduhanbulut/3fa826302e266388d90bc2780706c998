@@ -71,6 +71,10 @@ class DetailViewModel @Inject constructor(
             }
         )
     }
+
+    fun onDestroy() {
+        setEvent(DetailUIEvent.Dismiss)
+    }
 }
 
 sealed interface DetailUIEvent : BottomSheetEvent {

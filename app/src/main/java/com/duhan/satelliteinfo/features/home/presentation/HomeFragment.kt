@@ -1,7 +1,13 @@
 package com.duhan.satelliteinfo.features.home.presentation
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.duhan.satelliteinfo.R
 import com.duhan.satelliteinfo.databinding.FragmentHomeBinding
 import com.duhan.satelliteinfo.databinding.LayoutSatelliteItemBinding
@@ -15,7 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState, HomeViewModel>(),
-    LoadingBarInteractor<HomeUIState> by LoadingBarInteractorImpl() {
+    LoadingBarInteractor<HomeUIState> by LoadingBarInteractorImpl(),
+    SearchView.OnQueryTextListener {
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.fragment_home
     override val titleId: Int = R.string.home_fragment_title
@@ -37,9 +44,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
             adapter = satelliteAdapter,
             spaceModel = SpaceModel(
                 resources.getDimensionPixelSize(R.dimen.margin_8dp),
-                resources.getDimensionPixelSize(R.dimen.margin_8dp),
-
-                ),
+                resources.getDimensionPixelSize(R.dimen.margin_8dp)
+            ),
         )
         registerLoadingBar(
             supportFragmentManager = parentFragmentManager,
@@ -47,7 +53,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
             viewDataBinding = binding,
             loadingBarContainerId = R.id.loading_container
         )
+        initMenu()
         viewModel.getSatellites()
+    }
+
+    private fun initMenu() {
+        (requireActivity()).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu, menu)
+                val searchItem = menu.findItem(R.id.search)
+                val searchView = searchItem.actionView as SearchView?
+                searchView!!.setOnQueryTextListener(this@HomeFragment)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
     }
 
     override fun setBindingViewModel() {
@@ -62,6 +85,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeUIEvent, HomeUIState,
     }
 
     override fun handleUIEvent(it: HomeUIEvent) {
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        performSearch(query)
+        return true
+    }
+
+    private fun performSearch(query: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 
 
